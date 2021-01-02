@@ -33,21 +33,24 @@ $(function () {
     });
 
     // 注册功能，监听注册表单的提交事件
-
-    $('#form_reg').on('submit', function () {
+    $('#form_reg').on('submit', function (e) {
         e.preventDefault();
-        const data = {
-            username: $('form_reg [name=username]').val(),
-            password: $('form_reg [name=password]').val()
+        var data = {
+            username: $('#form_reg [name=username]').val(),
+            password: $('#form_reg [name=password]').val()
         };
-        $.post('/api/reguser',data,function(res) {
-            if(res.status!==0) {
+        $.post('http://ajax.frontend.itheima.net/api/reguser', data, function (res) {
+            if (res.status !== 0) {
+                // return console.log('注册失败', res.message);
                 return layer.msg(res.message);
             }
-            layer.msg('注册成功,请登录!')
+            // console.log('注册成功！');
+            layer.msg('注册成功');
+            // 主动触发点击事件
             $('#link_login').click();
         });
     });
+
 
 });
 
